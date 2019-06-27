@@ -31,22 +31,28 @@ public class PostedJobsForSeekers extends HttpServlet {
         ResultSet rs1 = dbobj.getUserDetails("bala.v@google.com");
         int i=0;
         while(rs.next()){
-            json.put("postId"+i, rs.getString("postid"));
-            json.put("companyName"+i, rs.getString("companyname"));
-            json.put("post"+i, rs.getString("post"));
-            json.put("skills"+i,rs.getString("skills"));
-            json.put("requiredExperience"+i,rs.getString("requiredexperience"));
-            json.put("department"+i, rs.getString("Department"));
-            json.put("vacancyStatus"+i,rs.getString("vacancyStatus"));
-            json.put("location"+i, rs.getString("location"));
-            json.put("postedBy"+i, rs.getString("postedby"));
-            json.put("applicationStatus"+i,rs.getString("application_status"));
-            i++;
+            
+            String preferedDesignations = rs.getString(1);
+            String availableDesignation = rs.getString(7);
+            if(preferedDesignations.contains(availableDesignation)){
+                json.put("postId"+i, rs.getString("postid"));
+                json.put("companyName"+i, rs.getString("companyname"));
+                json.put("post"+i, rs.getString("post"));
+                json.put("skills"+i,rs.getString("skills"));
+                json.put("requiredExperience"+i,rs.getString("requiredexperience"));
+                json.put("department"+i, rs.getString("Department"));
+                json.put("vacancyStatus"+i,rs.getString("vacancyStatus"));
+                json.put("location"+i, rs.getString("location"));
+                json.put("postedBy"+i, rs.getString("postedby"));
+                json.put("applicationStatus"+i,rs.getString("application_status"));
+                i++;
+            }
         }
         json.put("size", i);
         json.put("userLocation",rs1.getString("location"));
         json.put("userMobileNumber",rs1.getString("mobilenumber"));
         json.put("userExperienceYears",rs1.getString("experience"));
+        json.put("userPreferedDesignations",rs1.getString("department"));
         response.getWriter().print(json);
     }
 

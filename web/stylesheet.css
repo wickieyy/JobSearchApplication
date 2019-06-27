@@ -77,7 +77,10 @@
     color: #818181;
     display: block;
   }
-  
+  #employeeRegisterPage:hover{
+    color: gray;
+    cursor: pointer;
+  }
   .sidenav span:hover {
     color: #f1f1f1;
   }
@@ -85,6 +88,18 @@
       margin-left:160px;
   }
   #userProfile{
-      margin-left: 160px;
+      margin: auto;
       display:none;
+  }
+  #OtherPreferences{
+    display:none;
+  }
+  .showProfileBody{
+      width:450px;
+  }
+  #ProfileSkillsTextArea {
+      width:182px;
+  }
+  #profilePreferedDesignations{
+      width:182px;
   }

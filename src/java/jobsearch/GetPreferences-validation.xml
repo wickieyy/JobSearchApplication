@@ -4,7 +4,7 @@
   "-//OpenSymphony Group//XWork Validator 1.0.2//EN"   
   "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">  
   <validators>
-      <field name="fullName">
+<!--      <field name="fullName">
           <field-validator type="requiredstring">
               <param name="trim">true</param>
               <message>Name is required</message>
@@ -14,13 +14,13 @@
                 <message>First Name cannot exceed 30 characters</message>  
           </field-validator> 
       </field>
-      <field name="password">
+-->      <field name="password">
            <field-validator type="stringlength">  
                 <param name="minLength">5</param>  
                 <param name="maxLength">30</param>  
                 <message>Enter a Password containing atleast 5 characters</message>  
           </field-validator>  
-      </field>
+      </field><!--
     <field name="email">  
         <field-validator type="requiredstring"> 
             <param name="trim">true</param> 
@@ -32,21 +32,17 @@
     </field>
     <field name="location">  
         <field-validator type="requiredstring">  
-            <message>Enter your Current Location</message>  
+            <param name="trim">true</param>
+            <message>Enter your Location</message>  
         </field-validator>   
     </field>
-    <field name="pno">  
+-->    <field name="pno">  
         <field-validator type="stringlength">  
                 <param name="trim">true</param>
                 <param name="minLength">10</param>  
                 <param name="maxLength">10</param>  
                 <message>Enter a valid Mobile Number contains 10 digits</message>  
         </field-validator> 
-    </field>
-    <field name="department">  
-        <field-validator type="requiredstring">  
-            <message>Enter the Department</message>  
-        </field-validator>  
     </field>
 <!--    <field name="experienceYears">  
         <field-validator type="requiredint">  

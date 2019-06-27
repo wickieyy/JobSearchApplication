@@ -38,9 +38,18 @@
             <h3 id="employeeHomeBodyH3">Hello, <s:property value="email"/></h3>
             <div id="postedJobsCards">
             </div>
-            <div id="userProfile">
-                Profile
-                 <button>Edit Profile Details Here</button>
+            <div id="userProfile" class="jumbotron showProfileBody">
+                <h3><b>Profile</b></h3>
+                <s:actionerror/>
+                <s:form action="updateUserDetails" method="post" id="profileApplyNewJobForm" validate="true" changed="false">  
+                    <s:textfield  name="email" key="email" label="Email" id="profileApplicantEmail" placeholder="Enter registered email"  readonly="true"></s:textfield>
+                    <s:textfield  name="currentMobileNumber" key="currentMobileNumber" label="Current Mobile Number" id="ProfileCurrentMobileNumber" placeholder="Mobile Number" readonly="true"></s:textfield>
+                    <s:textfield  name="currentLocation" key="currentLocation" label="Current Location" id="ProfileCurrentLocation" placeholder="Current Location" readonly="true"></s:textfield>
+                    <s:textfield  name="experience" label="Years of Experience" placeholder="0 - 50+ year(s)" id="ProfileExperience" readonly="true"></s:textfield>
+                    <s:textarea name="preferedDesignations" label="Prefered designations" id="profilePreferedDesignations" placeholder="seperate roles by ','" readonly="true"></s:textarea>
+                    <d:submit id="submitButton" value="Update Changes" validate="true"></d:submit>  
+                </s:form>  
+                 <button id="editUserDetailsButton" onclick="enableEditing();">Edit Profile Details Here</button>
             </div>
         </div>
     </body>

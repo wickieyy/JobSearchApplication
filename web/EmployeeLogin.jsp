@@ -29,7 +29,7 @@
             <s:password name="password" key="password" label="password"></s:password>
             <d:submit id="submitButton" value="submit" validate="true" ></d:submit>
             </s:form>  
-            <a href="EmployeeRegister.jsp">New User? Register as Employee</a>
+            <span id="employeeRegisterPage" onclick="getPreferences();">New User? Register as Employee</span>
         </div>
     </body>
 </html>

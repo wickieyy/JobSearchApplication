@@ -102,7 +102,7 @@ public class DatabaseClass {
     ResultSet getPostedJobsByEmployee(String employeeEmail) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
-        PreparedStatement ps = connection.prepareStatement("select b.*,c.location,d.application_status from users A INNER JOIN jobvacancies b on a.Department = b.Department INNER JOIN companies c on c.companyname=b.companyname LEFT JOIN applications d on d.postid = b.postid where a.email=?;");
+        PreparedStatement ps = connection.prepareStatement("select a.department,b.*,c.location,d.application_status from users A INNER JOIN jobvacancies b INNER JOIN companies c on c.companyname=b.companyname LEFT JOIN applications d on d.postid = b.postid where a.email=?;");
         ps.setString(1,employeeEmail);
         ResultSet rs = ps.executeQuery();
         return rs;
@@ -148,5 +148,21 @@ public class DatabaseClass {
         ResultSet rs = ps.executeQuery();
         rs.next();
         return rs;
+    }
+
+    ResultSet getPreferences() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
+        PreparedStatement ps = connection.prepareStatement("select * from designations order by designation_id DESC;");
+        ResultSet preferencesResultSet = ps.executeQuery();
+        return preferencesResultSet;
+    }
+
+    void insertPreferences(String OtherPreferences) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
+        PreparedStatement ps = connection.prepareStatement("insert into designations(designations) values(?);");
+        ps.setString(1,OtherPreferences);
+        ps.executeUpdate();
     }
 }

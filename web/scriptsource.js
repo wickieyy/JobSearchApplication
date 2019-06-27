@@ -172,4 +172,77 @@ function viewApps(){
 function showEmployeeProfile(){
     $("#postedJobsCards").hide();
     $("#userProfile").css("display","block");
+    $("#ProfileCurrentMobileNumber").val(AvailableJobJson["userMobileNumber"]);
+    $("#ProfileExperience").val(AvailableJobJson["userExperienceYears"]);
+    $("#ProfileCurrentLocation").val(AvailableJobJson["userLocation"]);
+    $("#profilePreferedDesignations").val(AvailableJobJson["userPreferedDesignations"]);
+}
+function showEmployeeHome(){
+    $("#userProfile").css("display","none");
+    $("#postedJobsCards").show();
+}
+function getPreferences(){
+    var loc= window.location.href;
+    var locArr=loc.split("/").pop();
+    var newUrl=loc.replace(locArr,"GetPreferences.action");
+    location.replace(newUrl);
+}
+
+function loadPreferrences(){
+    var label = document.getElementsByClassName("label");
+    for(var i=0;i<label.length;i++){
+        if(label[i].innerHTML=="OtherPreferences:"){
+            label[i].style="display:none";
+        }
+    }
+    var pref = document.getElementsByClassName("checkboxLabel");
+    for(var i=0;i<pref.length;i++){
+        pref[i].setAttribute("onclick","showOtherPreferences("+i+");");
+        pref[i].checked=false;
+    }
+    var pref = document.getElementsByName("colors");
+    for(var i=0;i<pref.length;i++){
+        pref[i].setAttribute("onclick","showOtherPreferences("+i+");");
+        pref[i].checked=false;
+    }
+}
+function showOtherPreferences(j){
+    var pref=document.getElementsByName("colors");
+    var prefLabel = document.getElementsByClassName("checkboxLabel");
+    if(pref[j].checked==true){
+        if(prefLabel[j].innerHTML=="Other"){
+            document.getElementById("OtherPreferences").style="display:block";
+            var label = document.getElementsByClassName("label");
+            for(var i=0;i<label.length;i++){
+                if(label[i].innerHTML=="OtherPreferences:"){
+                    label[i].style="display:block";
+                }
+            }
+        }
+    }
+    else{
+        if(prefLabel[j].innerHTML=="Other"){
+            document.getElementById("OtherPreferences").style="display:none";
+            var label = document.getElementsByClassName("label");
+            for(var i=0;i<label.length;i++){
+                if(label[i].innerHTML=="OtherPreferences:"){
+                    label[i].style="display:none";
+                }
+            }
+        }
+    }
+}
+$(document).ready(function(){
+    $("#profileApplyNewJobForm :input").change(function() {
+        console.log("changed");
+        document.getElementById("profileApplyNewJobForm").setAttribute("changed","true");
+    });
+});
+function enableEditing(){
+    var inputFields = document.getElementsByClassName("userProfileForm");
+    document.getElementById("profileApplicantEmail").removeAttribute("readonly");
+    document.getElementById("ProfileCurrentMobileNumber").removeAttribute("readonly");
+    document.getElementById("ProfileCurrentLocation").removeAttribute("readonly");
+    document.getElementById("ProfileExperience").removeAttribute("readonly");
+    document.getElementById("profilePreferedDesignations").removeAttribute("readonly");
 }
