@@ -1,0 +1,90 @@
+.errorMessage{
+    color:red;
+    float:right;
+}
+#skillsTextArea{
+    width:182px;
+}
+#postJobsForm{
+    margin-top: 100px;
+    margin-left:400px;
+    position: absolute;
+    z-index: 1;
+}
+#closeForm{
+    float: right;
+    cursor: pointer;
+}
+.card{
+    width:800px;
+    margin: auto;
+}
+.postedPagePostedBy{
+    float: right;
+}
+.postedPageRequiredSkills{
+    text-align: center; 
+}
+.btn{
+    float: right;
+}
+.applyButton{
+    float: left;
+    margin-top: 10px;
+    margin-left: 15px;
+    width:70px;
+}
+#availableJobsHead{
+    text-align: center;
+}
+.statusFlag{
+    float: right;
+}
+#postedJobsHead{
+    text-align: center;
+}
+.numberOfApplications{
+    float:right;
+    margin-right:40px;
+}
+#applyJobsForm{
+    margin-top: 100px;
+    margin-left:400px;
+    position: absolute;
+    z-index: 1;
+}
+#applyCloseForm{
+    float: right;
+    cursor: pointer;
+}
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidenav span {
+    cursor: pointer;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+  }
+  
+  .sidenav span:hover {
+    color: #f1f1f1;
+  }
+  #employeeHomeBodyH3{
+      margin-left:160px;
+  }
+  #userProfile{
+      margin-left: 160px;
+      display:none;
+  }

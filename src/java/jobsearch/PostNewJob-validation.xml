@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+    
+<!DOCTYPE validators PUBLIC   
+  "-//OpenSymphony Group//XWork Validator 1.0.2//EN"   
+  "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">  
+  <validators>
+      <field name="companyname">
+          <field-validator type="requiredstring">
+              <param name="trim">true</param>
+              <message>Company Name is required</message>
+          </field-validator>
+          <field-validator type="stringlength">  
+                <param name="maxLength">30</param>  
+                <message>Company Name cannot exceed 30 characters</message>  
+          </field-validator> 
+      </field>
+    <field name="post">  
+        <field-validator type="requiredstring">  
+            <message>Enter the Post you want employees for</message>  
+        </field-validator>   
+    </field>
+    <field name="skills">   
+        <field-validator type="requiredstring">  
+                <message>Enter the Skills required for your vacancy</message>  
+        </field-validator> 
+    </field>
+    <field name="requiredExperience">
+           <field-validator type="required">  
+                <message>Enter the Experience year(s)</message>  
+           </field-validator> 
+           <field-validator type="int">  
+                  <param name="minlength">1</param>  
+                  <param name="maxlength">2</param>  
+                  <message>Enter the Experience year(s). For freshers give 0</message>  
+           </field-validator>   
+      </field>    
+      <field name="department">  
+        <field-validator type="requiredstring">  
+            <message>Enter the Department</message>  
+        </field-validator>  
+    </field>
+  </validators>

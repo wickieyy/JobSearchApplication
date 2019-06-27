@@ -1,0 +1,50 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.action.excludePattern" value="/PostedJobs,/PostedJobsForSeekers,/TogglePostedJobStatus"/>
+    <package name="default" extends="struts-default">
+        <action name="EmployeeLogin" class="jobsearch.EmployeeLogin" method="execute">
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
+            <result name="">/test.jsp</result>
+            <result name="success">/jobseeker.jsp</result>
+            <result name="input">/EmployeeLogin.jsp</result>
+            <result name="failure">/EmployeeLogin.jsp</result>
+        </action>
+        <action name="EmployerLogin" class="jobsearch.EmployerLogin" method="execute">
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
+            <result name="success">/employerHome.jsp</result>
+            <result name="failure">/EmployerLogin.jsp</result>
+            <result name="input">/EmployerLogin.jsp</result>
+        </action>
+        <action name="EmployeeRegister" class="jobsearch.EmployeeRegister" method="execute">
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
+            <result name="success">/EmployeeLogin.jsp</result>
+            <result name="input">/EmployeeRegister.jsp</result>
+        </action>
+        <action name="EmployerRegister" class="jobsearch.EmployerRegister" method="execute">
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
+            <result name="success">/EmployerLogin.jsp</result>
+            <result name="input">/EmployerRegister.jsp</result>
+        </action>
+        <action name="PostNewJob" class="jobsearch.PostNewJob" method="execute">
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
+            <result name="success">/employerHome.jsp</result>
+            <result name="input">/employerHome.jsp</result>
+        </action>
+        <action name="PostedJobs" class="jobsearch.PostedJobs" method="execute">
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
+            <result name="success">/employerHome.jsp</result>
+            <result name="input">/employerHome.jsp</result>
+        </action>
+        <action name="ApplyNewJob" class="jobsearch.ApplyNewJob" method="execute">
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
+            <result name="success">/jobseeker.jsp</result>
+            <result name="input">/jobseeker.jsp</result>
+        </action>
+        <action name="viewApplications" class="jobsearch.ViewApplications" method="execute">
+            <result name="success">/test.jsp</result>
+        </action>
+    </package>
+</struts>
