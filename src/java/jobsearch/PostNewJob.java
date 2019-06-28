@@ -2,13 +2,14 @@ package jobsearch;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.SQLException;
+import org.apache.struts2.ServletActionContext;
 
 public class PostNewJob extends ActionSupport{
     
     private String companyname;
     private String post;
     private int requiredExperience;
-    private String department;
+    private int salary;
     private boolean vacancyStatus;
 
     public boolean isVacancyStatus() {
@@ -19,12 +20,12 @@ public class PostNewJob extends ActionSupport{
         this.vacancyStatus = vacancyStatus;
     }
 
-    public String getDepartment() {
-        return department;
+    public int getDepartment() {
+        return salary;
     }
 
     public void setDepartment(String department) {
-        this.department = department;
+        this.salary = salary;
     }
 
     public int getRequiredExperience() {
@@ -61,9 +62,13 @@ public class PostNewJob extends ActionSupport{
     }
     
     public String execute() throws ClassNotFoundException, SQLException{
+        System.out.print("1235");
+        System.out.print(companyname+post+skills);
         DatabaseClass dbobj = new DatabaseClass();
         EmployerRegister employerRegister = new EmployerRegister();
-        dbobj.postNewJob(companyname,post,requiredExperience,skills,department,vacancyStatus,employerRegister.getEmail());
+        String email=(String) ServletActionContext.getRequest().getSession().getValue("employerEmail");
+        System.out.print(email+companyname+post+skills);
+        dbobj.postNewJob(companyname,post,requiredExperience,skills,salary,vacancyStatus,email);
         return "success";
     }
     

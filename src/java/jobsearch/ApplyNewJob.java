@@ -62,5 +62,6 @@ public class ApplyNewJob {
      DatabaseClass dbobj = new DatabaseClass();
      dbobj.updateApplicants(email,currentLocation,currentMobileNumber,skills,experience,postid);
      return "success";
- }    
+ }
+
 }

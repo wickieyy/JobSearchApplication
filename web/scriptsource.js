@@ -12,6 +12,15 @@ $(document).ready(function(){
       document.getElementById("postNewJobForm").reset();
       $("#employerHomeBody").css("opacity","1");
     });
+    $(document).on('keydown', function(event) {
+        if (event.key == "Escape") {
+             $("#postJobsForm").hide();
+             $("#applyJobsForm").hide();
+//             document.getElementById("postNewJobForm").reset();
+             $("#employerHomeBody").css("opacity","1");
+             $("#employeeHomeBody").css("opacity","1");
+        }
+    });
   }); 
   var PostedJobJson;
   var AvailableJobJson;
@@ -22,28 +31,30 @@ function loadPostedJobs(){
             // document.getElementById("postNewJobForm").reset();
             PostedJobJson=JSON.parse(xhttp.responseText);
             var jsonSize=PostedJobJson["size"];
-            if(jsonSize==0) $("#postedJobsCards").prepend("<h5 id='postedJobsHead'>No Jobs Currently Available</h5>");
+            if(jsonSize==0) $("#postedJobsCards").prepend("<h5 id='postedJobsHead'>No Jobs Posted</h5>");
             else
             { 
                 for(var i=0;i<jsonSize;i++){
+                    // $('#filterSelectTag').append("<option></option>").attr("value","Developer").text("Developer");
                     var postedJobsCard='<div class="card">'+
                                             '<div class="card-body">'+
                                                 '<h4 class="card-title"><span class="postedPageCardTitle"></span><span><small class="postedPageCardTitleLocation"></small></span><span><button class="btn btn-success btn-sm" onclick="togglePostedJobStatus('+i+')"><span class="statusButton"></span>&nbsp;&#9660;</button></span></h4>'+
                                                 '<div class="postedJobsCardBody">'+
                                                     '<span class="postedPageCardPost">&emsp;Vacancies in Post : </span>'+
-                                                    '&emsp;&emsp;<span class="postedPageDepartment">Department : </span>'+
-                                                    '&emsp;&emsp;<span class="postedPageRequiredExperience">Expected Experience : </span><br><br>'+
+                                                    '&emsp;&emsp;<span class="postedPageDepartment">Salary : </span>'+
+                                                    '&emsp;&emsp;&emsp;<span class="postedPageRequiredExperience">Expected Experience : </span><br><br>'+
                                                     '<span class="postedPageRequiredSkills">&emsp;Expected Skills : </span><span class="numberOfApplications">Number of Applied candidates : </span><br>'+
                                                     '<br><small><span class="postedPagePostedBy">posted by : </span></small>'+
                                                 '</div>'+
                                             '</div> '+
-                                        '</div><br>';                 
+                                        '</div><br>';        //applicationsCount         
                     $("#postedJobsCards").append(postedJobsCard);
                     $(".postedPageCardTitle")[i].append(PostedJobJson["companyName"+i]+", ");
                     $(".postedPageCardTitleLocation")[i].append(PostedJobJson["location"+i]);
                     $(".statusButton")[i].append(PostedJobJson["vacancyStatus"+i]);
                     $(".postedPageCardPost")[i].append(PostedJobJson["post"+i]);
-                    $(".postedPageDepartment")[i].append(PostedJobJson["department"+i]);
+                    $(".postedPageDepartment")[i].append(PostedJobJson["salary"+i]);
+                    $(".numberOfApplications")[i].append(PostedJobJson["applicationsCount"+i]);                    
                     $(".postedPageRequiredExperience")[i].append(PostedJobJson["requiredExperience"+i]+" year(s)");
                     $(".postedPageRequiredSkills")[i].append(PostedJobJson["skills"+i]);
                     $(".postedPagePostedBy")[i].append(PostedJobJson["postedBy"+i]);
@@ -67,46 +78,20 @@ function loadPostedJobsForSeekers(){
             if(jsonSize==0) $("#postedJobsCards").prepend("<h5 id='postedJobsHead'>No Jobs Currently Available</h5>");
             else
             { 
+                var selectTag = document.getElementById("filterSelectTag");
                 for(var i=0;i<jsonSize;i++){
-                    var applicationsCount = 0;
-                    var postedJobsCard='<div class="card">'+
-                                            '<div class="card-body">'+
-                                                '<h4 class="card-title"><span class="postedPageCardTitle"></span><span><small class="postedPageCardTitleLocation"></small></span><span class="badge badge-success statusFlag"></span></h4>'+
-                                                '<div class="postedJobsCardBody">'+
-                                                    '<span class="postedPageCardPost">&emsp;Vacancies in Post : </span>'+
-                                                    '&emsp;&emsp;<span class="postedPageDepartment">Department : </span>'+
-                                                    '&emsp;&emsp;<span class="postedPageRequiredExperience">Expected Experience : </span><br><br>'+
-                                                    '<span class="postedPageRequiredSkills">&emsp;Expected Skills : </span><span class="numberOfApplications">Number of Applied candidates : </span><br>'+
-                                                    '<span><button class="btn btn-primary btn-sm applyButton"   onclick="applyForJob('+i+')">Apply</button></span><br>'+
-                                                    '<small><span class="postedPagePostedBy">posted by : </span></small>'+
-                                                '</div>'+
-                                            '</div> '+
-                                        '</div><br>';                 
-                    $("#postedJobsCards").append(postedJobsCard);
-                    $(".postedPageCardTitle")[i].append(AvailableJobJson["companyName"+i]+", ");
-                    $(".postedPageCardTitleLocation")[i].append(AvailableJobJson["location"+i]);
-                    $(".statusFlag")[i].append(AvailableJobJson["vacancyStatus"+i]);
-                    $(".postedPageCardPost")[i].append(AvailableJobJson["post"+i]);
-                    $(".postedPageDepartment")[i].append(AvailableJobJson["department"+i]);
-                    $(".postedPageRequiredExperience")[i].append(AvailableJobJson["requiredExperience"+i]+" year(s)");
-                    $(".postedPageRequiredSkills")[i].append(AvailableJobJson["skills"+i]);
-                    $(".postedPagePostedBy")[i].append(AvailableJobJson["postedBy"+i]);
-                    var statusFlag = document.getElementsByClassName("statusFlag");
-                    var applyButton = document.getElementsByClassName("applyButton");
-                    if(AvailableJobJson["applicationStatus"+i]!=null){
-                        applyButton[i].innerHTML=AvailableJobJson["applicationStatus"+i];
-                        applyButton[i].disabled="true";
-                        applicationsCount++;
-                    }
-                    if(statusFlag[i].innerHTML=="Closed"){  
-                        applyButton[i].disabled = "true";
-                        statusFlag[i].setAttribute("class","badge badge-danger statusFlag");
-                        // $(".applyButton")[i].setAttribute("data-toggle","tooltip");
-                        // $(".applyButton")[i].setAttribute("title","Applications No Longer Accepted !");
-                    }
-                    $(".numberOfApplications")[i].innerHTML+=applicationsCount;
+                    var option = document.createElement("option");
+                    option.text = AvailableJobJson["department"+i];
+                    selectTag.add(option);
                 }
-                $("#postedJobsCards").prepend("<h3 id='availableJobsHead'>Available Opportunities</h3>");
+                // filterFunction();
+                var selectTag = document.getElementById("filterSelectTag1");
+                for(var i=0;i<jsonSize;i++){
+                    var option = document.createElement("option");
+                    option.text = "Rs."+AvailableJobJson["salary"+i];
+                    selectTag.add(option);
+                }
+                filterFunction();
             }
         }
     }
@@ -171,6 +156,7 @@ function viewApps(){
 }
 function showEmployeeProfile(){
     $("#postedJobsCards").hide();
+    $("#filterJobs").hide();
     $("#userProfile").css("display","block");
     $("#ProfileCurrentMobileNumber").val(AvailableJobJson["userMobileNumber"]);
     $("#ProfileExperience").val(AvailableJobJson["userExperienceYears"]);
@@ -180,6 +166,7 @@ function showEmployeeProfile(){
 function showEmployeeHome(){
     $("#userProfile").css("display","none");
     $("#postedJobsCards").show();
+    $("#filterJobs").show();
 }
 function getPreferences(){
     var loc= window.location.href;
@@ -234,15 +221,70 @@ function showOtherPreferences(j){
 }
 $(document).ready(function(){
     $("#profileApplyNewJobForm :input").change(function() {
-        console.log("changed");
         document.getElementById("profileApplyNewJobForm").setAttribute("changed","true");
     });
 });
 function enableEditing(){
-    var inputFields = document.getElementsByClassName("userProfileForm");
-    document.getElementById("profileApplicantEmail").removeAttribute("readonly");
     document.getElementById("ProfileCurrentMobileNumber").removeAttribute("readonly");
     document.getElementById("ProfileCurrentLocation").removeAttribute("readonly");
     document.getElementById("ProfileExperience").removeAttribute("readonly");
     document.getElementById("profilePreferedDesignations").removeAttribute("readonly");
+}
+function filterFunction(){
+    var jsonSize=AvailableJobJson["size"];
+    var selectTagByDesginations  = document.getElementById("filterSelectTag");
+    var selectTagBySalary = document.getElementById("filterSelectTag1");
+    document.getElementById("postedJobsCards").innerHTML="";
+    var cardCount=0;
+    for(var i=0;i<jsonSize;i++){
+        if(selectTagByDesginations.value!=AvailableJobJson["department"+i] && selectTagByDesginations.value!="none"){
+            continue;
+        }
+        if(selectTagBySalary.value!="Rs."+AvailableJobJson["salary"+i] && selectTagBySalary.value!="none"){
+            continue;
+        }
+        console.log(selectTagByDesginations.value+"zzz"+AvailableJobJson["department"+i]);
+        var applicationsCount = 0;
+        var postedJobsCard='<div class="card">'+
+                                '<div class="card-body">'+
+                                    '<h4 class="card-title"><span class="postedPageCardTitle"></span><span><small class="postedPageCardTitleLocation"></small></span><span class="badge badge-success statusFlag"></span></h4>'+
+                                    '<div class="postedJobsCardBody"><br>'+
+                                        '<span class="postedPageCardDepartment">&emsp;Designation : </span>'+
+                                        '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="postedPageSalary">Salary : </span>'+
+                                        '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="postedPageRequiredExperience">Expected Experience : </span><br><br>'+
+                                        '<span class="postedPageRequiredSkills">&emsp;Expected Skills : </span><span class="numberOfApplications">Number of Applied candidates : </span><br>'+
+                                        '<span><button class="btn btn-primary btn-sm applyButton"   onclick="applyForJob('+i+')">Apply</button></span><br>'+
+                                        '<small><span class="postedPagePostedBy">posted by : </span></small>'+
+                                    '</div>'+
+                                '</div> '+
+                            '</div><br>';                 
+        $("#postedJobsCards").append(postedJobsCard);
+        $(".postedPageCardTitle")[cardCount].append(AvailableJobJson["companyName"+i]+", ");
+        $(".postedPageCardTitleLocation")[cardCount].append(AvailableJobJson["location"+i]);
+        $(".statusFlag")[cardCount].append(AvailableJobJson["vacancyStatus"+i]);
+        $(".postedPageCardDepartment")[cardCount].append(AvailableJobJson["department"+i]);
+        $(".postedPageSalary")[cardCount].append(AvailableJobJson["salary"+i]);
+        $(".postedPageRequiredExperience")[cardCount].append(AvailableJobJson["requiredExperience"+i]+" year(s)");
+        $(".postedPageRequiredSkills")[cardCount].append(AvailableJobJson["skills"+i]);
+        $(".postedPagePostedBy")[cardCount].append(AvailableJobJson["postedBy"+i]);
+        var statusFlag = document.getElementsByClassName("statusFlag");
+        var applyButton = document.getElementsByClassName("applyButton");
+        if(AvailableJobJson["applicationStatus"+i]!=null){
+            applyButton[cardCount].innerHTML=AvailableJobJson["applicationStatus"+i];
+            applyButton[cardCount].disabled="true";
+            applicationsCount++;
+        }
+        if(statusFlag[cardCount].innerHTML=="Closed"){  
+            applyButton[cardCount].disabled = "true";
+            statusFlag[cardCount].setAttribute("class","badge badge-danger statusFlag");
+        }
+        $(".numberOfApplications")[cardCount].innerHTML+=applicationsCount;
+        cardCount++;
+    } 
+    var none=document.getElementById("postedJobsCards");
+    if(none.innerHTML==""){
+        console.log("none");
+        none.innerHTML+="<br><h4 style='text-align:center;'>No Jobs Available for applied Filter</h4>";
+    }
+    $("#postedJobsCards").prepend("<h3 id='availableJobsHead'>Available Opportunities</h3>");
 }

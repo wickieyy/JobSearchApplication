@@ -15,16 +15,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.ServletActionContext;
 import org.json.simple.JSONObject;
 public class PostedJobs extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         JSONObject json=new JSONObject();
         JSONObject jsonAppliedJobs=new JSONObject();
-        JSONObject jsonFinal = new JSONObject();
-        EmployerLogin employerLogin = new EmployerLogin();
-        String employerEmail = employerLogin.getEmail();
+        String employerEmail = (String) ServletActionContext.getRequest().getSession().getValue("employerEmail");;
         DatabaseClass dbobj = new DatabaseClass();
+        System.out.print(employerEmail);
         ResultSet rs = dbobj.getPostedJobsByEmployer(employerEmail);
         ResultSet rs1 = dbobj.getAppliedJobsForEmployer(employerEmail);
         int i=0;
@@ -35,7 +35,7 @@ public class PostedJobs extends HttpServlet {
             json.put("post"+i, rs.getString("post"));
             json.put("skills"+i,rs.getString("skills"));
             json.put("requiredExperience"+i,rs.getString("requiredexperience"));
-            json.put("department"+i, rs.getString("Department"));
+            json.put("salary"+i, rs.getString("salary"));
             json.put("vacancyStatus"+i,rs.getString("vacancyStatus"));
             json.put("location"+i, rs.getString("location"));
             json.put("postedBy"+i, rs.getString("postedby"));
@@ -49,9 +49,9 @@ public class PostedJobs extends HttpServlet {
             jsonAppliedJobs.put("post"+i, rs1.getString("post"));
             jsonAppliedJobs.put("applicantSkills"+i,rs1.getString("skills"));
             jsonAppliedJobs.put("applicantExperience"+i,rs1.getString("requiredexperience"));
-            jsonAppliedJobs.put("department"+i, rs1.getString("Department"));
+            jsonAppliedJobs.put("salary"+i, rs1.getString("salary"));
             jsonAppliedJobs.put("vacancyStatus"+i,rs1.getString("vacancyStatus"));
-            jsonAppliedJobs.put("applicationStatus"+i,rs1.getString("applicationStatus"));
+            jsonAppliedJobs.put("applicationStatus"+i,rs1.getString("application_status"));
             jsonAppliedJobs.put("applicantEmail"+i,rs1.getString("email"));
             jsonAppliedJobs.put("currentLocation"+i, rs1.getString("current_location"));
             jsonAppliedJobs.put("postedBy"+i, rs1.getString("postedby"));

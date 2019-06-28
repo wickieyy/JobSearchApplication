@@ -6,15 +6,21 @@
 package jobsearch;
 
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.util.ServletContextAware;
 import org.json.simple.JSONObject;
 
 public class GetPreferences extends ActionSupport {
+   
     private List<String> colors;
     
         public String getOtherPreferences() {
@@ -124,7 +130,6 @@ public class GetPreferences extends ActionSupport {
     return "none";
     }
     public String execute() throws ClassNotFoundException, SQLException{
-//        System.out.print(colors.toString());
 //        String designations="";
 //        for(int i=0;i<colors.size();i++){
 //            designations+=colors.get(i);

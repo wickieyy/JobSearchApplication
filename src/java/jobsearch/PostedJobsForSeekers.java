@@ -6,7 +6,6 @@
 package jobsearch;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -16,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.ServletActionContext;
 import org.json.simple.JSONObject;
 
 @WebServlet(name = "PostedJobsForSeekers", urlPatterns = {"/PostedJobsForSeekers"})
@@ -25,22 +25,22 @@ public class PostedJobsForSeekers extends HttpServlet {
         JSONObject jsonResponse=new JSONObject();
         EmployeeLogin employeeLogin = new EmployeeLogin();
         String employeeEmail=employeeLogin.getEmail();
-//        System.out.print("zz"+employeeLogin.getEmail()+"zz");
+        String email=(String) ServletActionContext.getRequest().getSession().getValue("employeeEmail");
         DatabaseClass dbobj = new DatabaseClass();
-        ResultSet rs = dbobj.getPostedJobsByEmployee("bala.v@google.com");
-        ResultSet rs1 = dbobj.getUserDetails("bala.v@google.com");
+        ResultSet rs = dbobj.getPostedJobsByEmployee(email);
+        ResultSet rs1 = dbobj.getUserDetails(email);
         int i=0;
         while(rs.next()){
             
             String preferedDesignations = rs.getString(1);
-            String availableDesignation = rs.getString(7);
+            String availableDesignation = rs.getString("post");
             if(preferedDesignations.contains(availableDesignation)){
                 json.put("postId"+i, rs.getString("postid"));
                 json.put("companyName"+i, rs.getString("companyname"));
-                json.put("post"+i, rs.getString("post"));
+                json.put("department"+i, rs.getString("post"));
                 json.put("skills"+i,rs.getString("skills"));
                 json.put("requiredExperience"+i,rs.getString("requiredexperience"));
-                json.put("department"+i, rs.getString("Department"));
+                json.put("salary"+i, rs.getString("salary"));
                 json.put("vacancyStatus"+i,rs.getString("vacancyStatus"));
                 json.put("location"+i, rs.getString("location"));
                 json.put("postedBy"+i, rs.getString("postedby"));

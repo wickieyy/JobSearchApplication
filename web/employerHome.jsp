@@ -28,7 +28,7 @@
             <s:form action="PostNewJob" method="post" id="postNewJobForm" validate="true">  
                 <s:textfield name="companyname" key="companyname" label="Company Name" id="comapanyName" placeholder="Company Name"></s:textfield>
                 <s:textfield name="post" key="post" label="Post" id="post" placeholder="Vacancy Post"></s:textfield>
-                <s:textfield name="department" key="department" label="Department" id="Department" placeholder="Enter Department"></s:textfield>
+                <s:textfield name="salary" key="salary" label="salary" id="salary" placeholder="Enter Salary"></s:textfield>
                 <s:textfield name="requiredExperience" label="Required Years of Experience" placeholder="0 - 50+ year(s)"></s:textfield>
                 <s:textarea name="skills" key="skills" label="Skills Required" id="skillsTextArea" placeholder="Enter the skills required"></s:textarea>
                 <s:checkbox name="vacancyStatus" fieldValue="true" label="Make Status as Open"/>

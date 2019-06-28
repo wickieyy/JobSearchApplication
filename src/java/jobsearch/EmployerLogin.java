@@ -2,6 +2,7 @@ package jobsearch;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.SQLException;
+import org.apache.struts2.ServletActionContext;
 
 public class EmployerLogin extends ActionSupport{
     private String email;
@@ -27,6 +28,7 @@ public class EmployerLogin extends ActionSupport{
         DatabaseClass database = new DatabaseClass();
         boolean bool=database.checkEmployerLoginCredentials(email,password);
         if(bool == true){
+            ServletActionContext.getRequest().getSession().putValue("employerEmail", email);
             return "success";
         }
         else{

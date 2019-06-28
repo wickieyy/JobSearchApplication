@@ -5,6 +5,7 @@
 <struts>
     <constant name="struts.devMode" value="true" />
     <constant name="struts.action.excludePattern" value="/PostedJobs,/PostedJobsForSeekers,/TogglePostedJobStatus"/>
+    <!--<constant name = "struts.multipart.maxSize" value = "E:\Resumes" />-->
    <package name="default" extends="struts-default">
         <action name="EmployeeLogin" class="jobsearch.EmployeeLogin" method="execute">
             <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
@@ -31,7 +32,7 @@
         </action>
         <action name="PostNewJob" class="jobsearch.PostNewJob" method="execute">
             <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
-            <result name="success">/employerHome.jsp</result>
+            <result name="success">/test.jsp</result>
             <result name="input">/employerHome.jsp</result>
         </action>
         <action name="PostedJobs" class="jobsearch.PostedJobs" method="execute">
@@ -44,7 +45,7 @@
             <result name="success">/jobseeker.jsp</result>
             <result name="input">/jobseeker.jsp</result>
         </action>
-        <action name="updateUserDetails" class="jobsearch.ApplyNewJob" method="updateUser">
+        <action name="updateUserDetails" class="jobsearch.UpdateUserProfile" method="updateUserDetails">
             <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
             <result name="success">/jobseeker.jsp</result>
             <result name="input">/jobseeker.jsp</result>

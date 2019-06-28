@@ -25,7 +25,7 @@
             <h2>Register Page</h2>
             <p id="error" class="errorMessage1"></p>
             <s:actionerror/> 
-            <s:form action="EmployeeRegister" method="post" id="registerForm" validate="true">  
+            <s:form action="EmployeeRegister" method="post" id="registerForm" validate="true" enctype = "multipart/form-data">  
                 <s:textfield name="fullName" key="fullName" label="Full Name" placeholder="Full Name"></s:textfield>
                 <s:textfield name="email" key="email" label="Email" placeholder="Email"></s:textfield>
                 <s:password name="password" key="password" placeholder="Password" label="Password"></s:password>
@@ -35,9 +35,15 @@
                 <s:textfield name="OtherPreferences" id="OtherPreferences" placeholder="Separate Preferences by Comma" label="OtherPreferences"></s:textfield>
                 <s:textfield name="experienceYears" placeholder="0 - 50+ years" label="Experience in Year(s)" ></s:textfield>
                 <s:textfield name="experienceAsPost" placeholder="Experience As (optional)"label="Experience as "></s:textfield>
+                <!-- <s:file label="Upload Resume (optional)" name="resume"></s:file> -->
                 <d:submit id="submitButton" value="submit" validate="true" ></d:submit>  
                 <s:property value="a"/><br/>  
             </s:form> 
+            <!-- <form action = "upload" method = "post" enctype = "multipart/form-data">
+                <label for = "myFile">Upload your file</label>
+                <input type = "file" name = "myFile" />
+                <input type = "submit" value = "Upload"/>
+             </form> -->
         </div>
     </body>
 </html>

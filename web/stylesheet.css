@@ -1,6 +1,6 @@
 .errorMessage{
     color:red;
-    float:right;
+    float:left;
 }
 #skillsTextArea{
     width:182px;
@@ -85,17 +85,15 @@
     color: #f1f1f1;
   }
   #employeeHomeBodyH3{
-      margin-left:160px;
+      text-align: center;
   }
   #userProfile{
       margin: auto;
       display:none;
+      width:450px; 
   }
   #OtherPreferences{
     display:none;
-  }
-  .showProfileBody{
-      width:450px;
   }
   #ProfileSkillsTextArea {
       width:182px;
@@ -103,3 +101,44 @@
   #profilePreferedDesignations{
       width:182px;
   }
+  #userProfile input {
+      background-color: #f1f1f1;
+  }
+  #userProfile textarea  {
+    background-color: #f1f1f1;
+}
+/* .showProfileBody input{
+    background-color: white;
+  } */
+  #editUserDetailsButton{
+      float: right;
+  }
+  #EmployerLoginForm{
+      margin:auto;
+      margin-top:100px;
+      width:350px;
+  }
+  #EmployeeLoginForm{
+      text-align: center;
+    margin:auto;
+    margin-top:100px;
+    width:350px;
+  }
+  #EmployeeRegisterForm{
+    margin:auto;
+    width:auto;
+    height: auto;
+  }
+  #EmployerRegisterForm{
+    margin:auto;
+    width:auto;
+    height: auto;
+  }
+  #filterSelectTag{
+      /* margin-left:px; */
+      width:auto;
+  }
+  #filterSelectTag1{
+    margin-left:900px;
+    width:auto; 
+ }

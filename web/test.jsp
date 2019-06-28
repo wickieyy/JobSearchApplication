@@ -19,14 +19,11 @@
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/stylesheet.css" />
         <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">  
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    </head>
+    </head> 
     <body>
-        <h1>TEST</h1>
-        <s:property value="a"/><br/>  
-        <div class="col-4">
-        <select class="custom-select" id="data_source" multiple="multiple">
-            </select>
-            </div>
-            <s:checkboxlist label="What's your favor color" list="colors"  name="yourColor" value="defaultColor" />
+        <div class="alert alert-success">
+            <strong>Success!</strong> User Profile updated !!
+        </div>
+        <%--<%@include file="jobseeker.jsp" %>--%>
     </body>
 </html>

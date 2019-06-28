@@ -70,7 +70,7 @@ public class EmployerRegister {
     public String execute() throws ClassNotFoundException, SQLException{
         System.out.print("demo");
         DatabaseClass database=new DatabaseClass();
-        database.insertCompany(companyname,companyLocation);
+//        database.insertCompany(companyname,companyLocation);
         database.employerRegister(fullName, email, password, companyname,location, pno);
         return "success";
     }

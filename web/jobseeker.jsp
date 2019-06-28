@@ -36,10 +36,25 @@
         </div>
         <div id="employeeHomeBody">
             <h3 id="employeeHomeBodyH3">Hello, <s:property value="email"/></h3>
+            <div id="filterJobs">
+                <select id="filterSelectTag1" onchange="filterFunction();">
+                    <option value="none" disabled selected>Filter by Salary</option>
+                    <option value="none">--All--</option>
+                    <!-- <option value="designations">Designations</option>
+                    <option value="salary">Salary</option> -->
+                </select>
+                <select  id="filterSelectTag" onchange="filterFunction();">
+                    <option value="none" disabled selected>Filter by Role</option>
+                    <option value="none">--All--</option>
+                </select>
+            </div>
+                  
             <div id="postedJobsCards">
             </div>
-            <div id="userProfile" class="jumbotron showProfileBody">
-                <h3><b>Profile</b></h3>
+            <div id="userProfile" class="jumbotron">
+                </span><span><button id="editUserDetailsButton"  class="btn btn-info btn-sm" onclick="enableEditing();"><span class="glyphicon glyphicon-edit"></span>Edit Profile</button></span>
+                <span id="userProfileH3"><h3><b>Profile</b></h3>
+                <br>
                 <s:actionerror/>
                 <s:form action="updateUserDetails" method="post" id="profileApplyNewJobForm" validate="true" changed="false">  
                     <s:textfield  name="email" key="email" label="Email" id="profileApplicantEmail" placeholder="Enter registered email"  readonly="true"></s:textfield>
@@ -49,7 +64,6 @@
                     <s:textarea name="preferedDesignations" label="Prefered designations" id="profilePreferedDesignations" placeholder="seperate roles by ','" readonly="true"></s:textarea>
                     <d:submit id="submitButton" value="Update Changes" validate="true"></d:submit>  
                 </s:form>  
-                 <button id="editUserDetailsButton" onclick="enableEditing();">Edit Profile Details Here</button>
             </div>
         </div>
     </body>
