@@ -2,6 +2,8 @@ package jobsearch;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.SQLException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 public class EmployerLogin extends ActionSupport{
@@ -25,10 +27,13 @@ public class EmployerLogin extends ActionSupport{
     }
     
     public String execute() throws ClassNotFoundException, SQLException{
+        HttpServletResponse response = ServletActionContext.getResponse();
         DatabaseClass database = new DatabaseClass();
         boolean bool=database.checkEmployerLoginCredentials(email,password);
         if(bool == true){
             ServletActionContext.getRequest().getSession().putValue("employerEmail", email);
+            Cookie cookie = new Cookie("employerEmail",email);                
+            response.addCookie(cookie);
             return "success";
         }
         else{

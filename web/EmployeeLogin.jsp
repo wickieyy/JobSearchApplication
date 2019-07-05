@@ -20,7 +20,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/stylesheet.css" />    
     </head>
-    <body>
+    <body onload="checkCookieForEmployee();">
         <div id="EmployeeLoginForm" class="jumbotron">
             <h3><b>Login</b></h3>
             <s:actionerror/>

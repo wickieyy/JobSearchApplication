@@ -42,14 +42,4 @@
                   <message>Enter your Experience year(s). For freshers give 0</message>  
            </field-validator>   
       </field>
-      <field name="salary">
-           <field-validator type="required">  
-                <message>Enter your Experience year(s)</message>  
-           </field-validator> 
-           <field-validator type="int">  
-                  <param name="minlength">10000</param>  
-                  <param name="maxlength">100000</param>  
-                  <message>Enter your Experience year(s). For freshers give 0</message>  
-           </field-validator>   
-      </field>
   </validators>

@@ -13,8 +13,8 @@
                 <param name="maxLength">30</param>  
                 <message>First Name cannot exceed 30 characters</message>  
           </field-validator> 
-      </field>
--->      <field name="password">
+      </field>-->
+      <field name="password">
            <field-validator type="stringlength">  
                 <param name="minLength">5</param>  
                 <param name="maxLength">30</param>  
@@ -30,13 +30,13 @@
             <message>Please enter a valid email ID</message>  
         </field-validator>  
     </field>
-    <field name="location">  
+-->   <field name="locationRegister">  
         <field-validator type="requiredstring">  
             <param name="trim">true</param>
             <message>Enter your Location</message>  
         </field-validator>   
-    </field>
--->    <field name="pno">  
+    </field> 
+    <field name="pno">  
         <field-validator type="stringlength">  
                 <param name="trim">true</param>
                 <param name="minLength">10</param>  

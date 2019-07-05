@@ -69,6 +69,7 @@ public class PostNewJob extends ActionSupport{
         String email=(String) ServletActionContext.getRequest().getSession().getValue("employerEmail");
         System.out.print(email+companyname+post+skills);
         dbobj.postNewJob(companyname,post,requiredExperience,skills,salary,vacancyStatus,email);
+        addActionMessage("Job Posted");
         return "success";
     }
     

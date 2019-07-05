@@ -7,6 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib uri="/struts-dojo-tags" prefix="d"%> 
+<%@ page import = "java.io.*,java.util.*" %>
+<!-- <%
+//if (session.isNew() ){
+//    session.getAttribute(userId, userID);
+// } 
+%> -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +26,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/stylesheet.css" />     
     </head>
-    <body>
+    <body onload="checkCookie();">
         <div id="EmployerLoginForm" class="jumbotron">
             <h3><b>Login</b></h3>
             <s:actionerror/>

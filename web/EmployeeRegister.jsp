@@ -29,13 +29,13 @@
                 <s:textfield name="fullName" key="fullName" label="Full Name" placeholder="Full Name"></s:textfield>
                 <s:textfield name="email" key="email" label="Email" placeholder="Email"></s:textfield>
                 <s:password name="password" key="password" placeholder="Password" label="Password"></s:password>
-                <s:textfield name="location" key="location" placeholder="Location" label="Location"></s:textfield>
+                <s:textfield name="locationRegister" key="location" placeholder="Location" label="Location"></s:textfield>
                 <s:textfield name="pno" key="pno" placeholder="Mobile Number" label="Phone Number"></s:textfield>
                 <s:checkboxlist name="colors" label="Preferences" list="colors" id="employeePreferences"></s:checkboxlist>
                 <s:textfield name="OtherPreferences" id="OtherPreferences" placeholder="Separate Preferences by Comma" label="OtherPreferences"></s:textfield>
                 <s:textfield name="experienceYears" placeholder="0 - 50+ years" label="Experience in Year(s)" ></s:textfield>
                 <s:textfield name="experienceAsPost" placeholder="Experience As (optional)"label="Experience as "></s:textfield>
-                <!-- <s:file label="Upload Resume (optional)" name="resume"></s:file> -->
+                <s:file label="Upload Resume (optional)" name="resumeUpload"></s:file>
                 <d:submit id="submitButton" value="submit" validate="true" ></d:submit>  
                 <s:property value="a"/><br/>  
             </s:form> 

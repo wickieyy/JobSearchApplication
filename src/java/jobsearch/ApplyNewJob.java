@@ -1,8 +1,9 @@
 package jobsearch;
 
+import com.opensymphony.xwork2.ActionSupport;
 import java.sql.SQLException;
 
-public class ApplyNewJob {
+public class ApplyNewJob extends ActionSupport{
     private String email;
     private String currentMobileNumber;
     private String currentLocation;
@@ -59,8 +60,10 @@ public class ApplyNewJob {
         this.skills = skills;
     }
  public String execute() throws SQLException, ClassNotFoundException{
+     System.out.println("jobsearch.ApplyNewJob.execute()");
      DatabaseClass dbobj = new DatabaseClass();
      dbobj.updateApplicants(email,currentLocation,currentMobileNumber,skills,experience,postid);
+     addActionMessage("Application Submited");
      return "success";
  }
 

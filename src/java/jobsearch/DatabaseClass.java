@@ -94,7 +94,7 @@ public class DatabaseClass {
     ResultSet getPostedJobsByEmployer(String employerEmail) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
-        PreparedStatement ps = connection.prepareStatement("select recruiters.email,recruiters.location,jobvacancies.* from recruiters INNER JOIN jobvacancies on recruiters.companyname = jobvacancies.companyname where recruiters.email=?");
+        PreparedStatement ps = connection.prepareStatement("select recruiters.location,jobvacancies.* from recruiters INNER JOIN jobvacancies on recruiters.companyname = jobvacancies.companyname where recruiters.email=?");
         ps.setString(1, employerEmail);
         ResultSet rs = ps.executeQuery();
         return rs;
@@ -103,7 +103,7 @@ public class DatabaseClass {
     ResultSet getPostedJobsByEmployee(String employeeEmail) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
-        PreparedStatement ps = connection.prepareStatement("select a.department,b.*,c.location,d.application_status from users A INNER JOIN jobvacancies b INNER JOIN companies c on c.companyname=b.companyname LEFT JOIN applications d on d.postid = b.postid where a.email=?;");
+        PreparedStatement ps = connection.prepareStatement("select a.department,b.*,c.location from users A INNER JOIN jobvacancies b INNER JOIN companies c on c.companyname=b.companyname LEFT JOIN applications d on d.postid = b.postid where a.email=?;");
         ps.setString(1,employeeEmail);
         ResultSet rs = ps.executeQuery();
         return rs;
@@ -121,7 +121,7 @@ public class DatabaseClass {
     void updateApplicants(String email, String currentLocation, String currentMobileNumber, String skills, int experience, int postid) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
-        PreparedStatement ps = connection.prepareStatement("insert into applications(email,postid,current_location,current_mobilenumber,applicant_skills,applicant_experience) values(?,?,?,?,?,?.?);");
+        PreparedStatement ps = connection.prepareStatement("insert into applications(email,postid,current_location,current_mobilenumber,applicant_skills,applicant_experience,application_status) values(?,?,?,?,?,?,?);");
         ps.setString(1,email);
         ps.setInt(2,postid);
         ps.setString(3, currentLocation);
@@ -135,13 +135,13 @@ public class DatabaseClass {
     ResultSet getAppliedJobsForEmployer(String employerEmail) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
-        PreparedStatement ps = connection.prepareStatement("select jobvacancies.*,applications.* from applications INNER JOIN jobvacancies on jobvacancies.postid = applications.postid where jobvacancies.postedby=?;");
+        PreparedStatement ps = connection.prepareStatement("select jobvacancies.*,applications.*,users.fullname,users.location from applications INNER JOIN jobvacancies on jobvacancies.postid = applications.postid INNER JOIN users on users.email=applications.email where jobvacancies.postedby=?;");
         ps.setString(1,employerEmail);
         ResultSet rs = ps.executeQuery();
         return rs;
     }
 
-    ResultSet getUserDetails(String email) throws ClassNotFoundException, SQLException {
+        ResultSet getUserDetails(String email) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
         PreparedStatement ps = connection.prepareStatement("select * from users where email=?");
@@ -163,13 +163,15 @@ public class DatabaseClass {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
         PreparedStatement ps = connection.prepareStatement("insert into designations(designations) values(?);");
-        ps.setString(1,OtherPreferences);
-        ps.executeUpdate();
+        String[] otherPref = OtherPreferences.split(",");
+        for(int i=0;i<otherPref.length;i++){
+            ps.setString(1,otherPref[i].trim());
+            ps.executeUpdate();
+        }
     }
 
     void updateProfile(String email, String currentLocation, String currentMobileNumber, int experience, String preferedDesignations) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        System.out.print(email);
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
         PreparedStatement ps = connection.prepareStatement("update users set mobilenumber = ?, location=?, experience  =?, Department=? where email=?");
         ps.setString(1, currentMobileNumber);
@@ -179,8 +181,28 @@ public class DatabaseClass {
         ps.setString(5, email);
         ps.executeUpdate();
     }
+    ResultSet getPostedJobsCountByEmployer(String employerEmail) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
+        PreparedStatement ps = connection.prepareStatement("select postid from applications;");
+        ResultSet appliedCount = ps.executeQuery();
+        return appliedCount;
+    }
 
-    void getApplicationCount(String companyname, String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    ResultSet getPostedJobsCountByEmployee() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
+        PreparedStatement ps = connection.prepareStatement("select postid from applications;");
+        ResultSet appliedCount = ps.executeQuery();
+        return appliedCount; 
+    }
+
+    ResultSet getAlreadyApplied(String employeeEmail) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
+        PreparedStatement ps = connection.prepareStatement("select postid from applications where email=?;");
+        ps.setString(1,employeeEmail);
+        ResultSet alreadyApplied = ps.executeQuery();
+        return alreadyApplied; 
     }
 }

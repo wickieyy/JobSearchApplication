@@ -4,12 +4,22 @@
 
 <struts>
     <constant name="struts.devMode" value="true" />
-    <constant name="struts.action.excludePattern" value="/PostedJobs,/PostedJobsForSeekers,/TogglePostedJobStatus"/>
+    <constant name="struts.custom.i18n.resources" value="global" />
+    <constant name="struts.multipart.saveDir" value="" />
+    <constant name="struts.action.excludePattern" value="/TogglePostedJobStatus"/>
     <!--<constant name = "struts.multipart.maxSize" value = "E:\Resumes" />-->
    <package name="default" extends="struts-default">
+        <interceptors>
+            <interceptor name="userSession" class="jobsearch.SessionInterceptor"></interceptor>
+        </interceptors>
+        <action name="SessionValidateEmployee" class="jobsearch.SessionValidation" method="employee">
+            <result name="success" type="redirect">/jobseeker.jsp</result>
+            <result name="error" type="redirect">/EmployeeLogin.jsp</result>
+        </action>
         <action name="EmployeeLogin" class="jobsearch.EmployeeLogin" method="execute">
             <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
-            <result name="">/test.jsp</result>
+<!--             <interceptor-ref name="userSession"></interceptor-ref>
+            <result name="loginUser" type="redirect">/EmployeeLogin.jsp</result>-->
             <result name="success">/jobseeker.jsp</result>
             <result name="input">/EmployeeLogin.jsp</result>
             <result name="failure">/EmployeeLogin.jsp</result>
@@ -21,7 +31,14 @@
             <result name="input">/EmployerLogin.jsp</result>
         </action>
         <action name="EmployeeRegister" class="jobsearch.GetPreferences" method="execute">
-            <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
+            	<interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="basicStack"/>
+<!--            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">10240</param>
+                <param name="allowedTypes">text/plain</param>
+            </interceptor-ref> 
+            <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> -->
+            <interceptor-ref name="defaultStack" />
             <result name="success">/EmployeeLogin.jsp</result>
             <result name="input">/EmployeeRegister.jsp</result>
         </action>
@@ -32,7 +49,7 @@
         </action>
         <action name="PostNewJob" class="jobsearch.PostNewJob" method="execute">
             <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
-            <result name="success">/test.jsp</result>
+            <result name="success">/employerHome.jsp</result>
             <result name="input">/employerHome.jsp</result>
         </action>
         <action name="PostedJobs" class="jobsearch.PostedJobs" method="execute">
@@ -41,7 +58,7 @@
             <result name="input">/employerHome.jsp</result>
         </action>
         <action name="ApplyNewJob" class="jobsearch.ApplyNewJob" method="execute">
-            <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
+            <!--<interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref>--> 
             <result name="success">/jobseeker.jsp</result>
             <result name="input">/jobseeker.jsp</result>
         </action>
@@ -50,13 +67,21 @@
             <result name="success">/jobseeker.jsp</result>
             <result name="input">/jobseeker.jsp</result>
         </action>
-        <action name="viewApplications" class="jobsearch.ViewApplications" method="execute">
-            <result name="success">/test.jsp</result>
+        <action name="viewApplications" class="jobsearch.ViewApplications" method="viewApps">
+            <!--<result name="success">/test.jsp</result>-->
         </action>
         <action name="GetPreferences" class="jobsearch.GetPreferences" method="checkList">
             <result name="none">/EmployeeRegister.jsp</result>
             <result name="success">/EmployeeRegister.jsp</result>
             <result name="input">/EmployeeRegister.jsp</result>
+        </action>
+        <action name="PostedJobs" class="jobsearch.PostedJobs" method="execute">
+        </action>
+        <action name="PostedJobsGetAppliedCount" class="jobsearch.PostedJobs" method="getApplicationsCount">
+        </action>
+        <action name="GetAppliedCountForSeekers" class="jobsearch.PostedJobsForSeekers" method="getApplicationCount">
+        </action>
+        <action name="PostedJobsForSeekers" class="jobsearch.PostedJobsForSeekers" method="execute">
         </action>
     </package>
 </struts>

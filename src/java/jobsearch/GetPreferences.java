@@ -7,12 +7,14 @@ package jobsearch;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -36,12 +38,57 @@ public class GetPreferences extends ActionSupport {
     private String fullName;
     private String email;
     private String password;
-    private String location;
+    private String locationRegister;
     private String pno;
     private int experienceYears;
     private String experienceAsPost;
     private String Department;
     private String OtherPreferences;
+    private File resumeUpload;
+    private String resumeUploadContentType;
+    private String resumeUploadFileName;
+    private String destPath;
+
+    public String getLocationRegister() {
+        return locationRegister;
+    }
+
+    public void setLocationRegister(String locationRegister) {
+        this.locationRegister = locationRegister;
+    }
+
+    public String getDestPath() {
+        return destPath;
+    }
+
+    public void setDestPath(String destPath) {
+        this.destPath = destPath;
+    }
+
+    public File getResumeUpload() {
+        return resumeUpload;
+    }
+
+    public void setResumeUpload(File resumeUpload) {
+        this.resumeUpload = resumeUpload;
+    }
+
+    public String getResumeUploadContentType() {
+        return resumeUploadContentType;
+    }
+
+    public void setResumeUploadContentType(String resumeUploadContentType) {
+        this.resumeUploadContentType = resumeUploadContentType;
+    }
+
+    public String getResumeUploadFileName() {
+        return resumeUploadFileName;
+    }
+
+    public void setResumeUploadFileName(String resumeUploadFileName) {
+        this.resumeUploadFileName = resumeUploadFileName;
+    }
+
 
     public String getFullName() {
         return fullName;
@@ -66,15 +113,6 @@ public class GetPreferences extends ActionSupport {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getPno() {
         return pno;
     }
@@ -129,20 +167,31 @@ public class GetPreferences extends ActionSupport {
         }
     return "none";
     }
+    private HttpServletRequest servletRequest;
     public String execute() throws ClassNotFoundException, SQLException{
-//        String designations="";
-//        for(int i=0;i<colors.size();i++){
-//            designations+=colors.get(i);
-//            if(i<colors.size()-1){
-//                designations+=",";
-//            }
-//        }
-//        DatabaseClass database=new DatabaseClass();
-//        database.employeeRegister(fullName, email, password,location, pno, experienceYears, experienceAsPost,designations);
-//        if(OtherPreferences.equals("")){}
-//        else{
-//            database.insertPreferences(OtherPreferences);
-//        }
+        try {
+           String destPath = "E:\\Resumes"; 
+           File fileToCreate = new File(destPath,this.email+".txt");  
+           FileUtils.copyFile(this.resumeUpload, fileToCreate);//copying source file to new file  
+        } catch(IOException e) {
+           e.printStackTrace();
+           addActionError(e.getMessage());
+           return INPUT;
+        }
+        String designations="";
+        for(int i=0;i<colors.size()-1;i++){
+            designations+=colors.get(i)+",";
+        }
+        String[] otherPref = OtherPreferences.split(",");
+        for(int i=0;i<otherPref.length;i++){
+            designations+=otherPref[i]+",";
+        }
+        DatabaseClass database=new DatabaseClass();
+        database.employeeRegister(fullName, email, password,locationRegister, pno, experienceYears, experienceAsPost,designations);
+        if(OtherPreferences.equals("")){}
+        else{
+            database.insertPreferences(OtherPreferences);
+        }
         return "success";
     }
 }

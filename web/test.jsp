@@ -21,9 +21,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </head> 
     <body>
-        <div class="alert alert-success">
-            <strong>Success!</strong> User Profile updated !!
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong> This alert box could indicate a successful or positive action.
         </div>
-        <%--<%@include file="jobseeker.jsp" %>--%>
     </body>
 </html>

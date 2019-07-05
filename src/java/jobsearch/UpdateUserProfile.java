@@ -67,6 +67,7 @@ public class UpdateUserProfile extends ActionSupport{
         RequestDispatcher rd = request.getRequestDispatcher("test.jsp");
         rd.include(request,response);
 //        response.getWriter().print("Success !! User Profile Updated !!");
+        addActionMessage("Profile Updated !!");
         return "success";
     }
 }

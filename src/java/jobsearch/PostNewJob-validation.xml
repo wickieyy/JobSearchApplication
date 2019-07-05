@@ -35,11 +35,12 @@
            </field-validator>   
       </field>
       <field name="salary">
-           <field-validator type="required">  
+<!--            <field-validator type="required">  
                 <message>Enter salary!</message>  
-           </field-validator> 
+           </field-validator> -->
            <field-validator type="int">  
-                  <param name="minlength">3</param>  
+                  <param name="minlength">1</param>  
+                  <param name="maxlength">2</param>  
                   <message>Enter Salary in digits</message>  
            </field-validator>   
       </field>    
