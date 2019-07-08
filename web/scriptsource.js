@@ -65,6 +65,7 @@ $(document).ready(function(){
       $("#postJobsForm").show();
       $("#employerHomeBody").css("opacity","0.5");
       $("#appliedForJobs").css("opacity","0.5");
+      $("#employerProfile").css("opacity","0.5");
     });
   });
   $(document).ready(function(){
@@ -73,6 +74,7 @@ $(document).ready(function(){
       document.getElementById("postNewJobForm").reset();
       $("#employerHomeBody").css("opacity","1");
       $("#appliedForJobs").css("opacity","1");
+      $("#employerProfile").css("opacity","1");
     });
     $(document).on('keydown', function(event) {
         if (event.key == "Escape") {
@@ -80,6 +82,7 @@ $(document).ready(function(){
              $("#applyJobsForm").hide();
              $("#employerHomeBody").css("opacity","1");
              $("#appliedForJobs").css("opacity","1");
+             $("#employerProfile").css("opacity","1");
         }
     });
   }); 
@@ -87,9 +90,11 @@ $(document).ready(function(){
         $(document).on('keydown', function(event) {
             if (event.key == "Escape") {
                 $("#actionMessageEmployeeHome").hide();
+                $("#actionMessageEmployerHome").hide();
             }
             if (event.key == "Enter") {
                 $("#actionMessageEmployeeHome").hide();
+                $("#actionMessageEmployerHome").hide();
             }
         });
   });
@@ -148,6 +153,11 @@ function loadPostedJobs(){
                             if(statusButton[i].innerHTML=="Closed")  statusButton[i].parentNode.setAttribute("class","btn btn-danger btn-sm");
                         }
                         $("#postedJobsCards").prepend("<h3 id='postedJobsHead'>Posted Jobs</h3>");
+                        $("#employerProfileEmail").val(PostedJobJson["employerProfileEmail"]);
+                        $("#employerProfileFullName").val(PostedJobJson["employerFullName"]);
+                        $("#employerProfileCompanyName").val(PostedJobJson["employerCompanyName"]);
+                        $("#ProfileCurrentMobileNumber").val(PostedJobJson["employerMobileNumber"]);
+                        $("#ProfileCurrentLocation").val(PostedJobJson["employerLocation"]);
                     }
                 }
                 xhttp1.open("GET","PostedJobsGetAppliedCount",true);
@@ -200,7 +210,6 @@ function loadPostedJobsForSeekers(){
 }
 function togglePostedJobStatus(i){
     var status=document.getElementsByClassName("statusButton")[i].innerHTML;
-    // console.log(status);
     if(status=="Closed"){
         status="Open";
     }
@@ -209,7 +218,6 @@ function togglePostedJobStatus(i){
     }
     var bool=confirm("Change Status to "+status+" ?");
     var postid=PostedJobJson["postId"+i];
-    // console.log(postid);
     if(bool==true){
         var xhttp=new XMLHttpRequest();
         xhttp.onreadystatechange = function(){
@@ -230,7 +238,7 @@ function togglePostedJobStatus(i){
         xhttp.send();
     }
 }
-function applyForJob(i){
+function applyForJob(i,status){
     $("#applyJobsForm").show();
     $("#currentMobileNumber").val(AvailableJobJson["userMobileNumber"]);
     $("#experience").val(AvailableJobJson["userExperienceYears"]);
@@ -245,13 +253,18 @@ function applyForJob(i){
       $(document).on('keydown', function(event) {
         if (event.key == "Escape") {
             $("#applyJobsForm").hide();
-            console.log("es closed");
             $("#employeeHomeBody").css("opacity","1");
         }
     });
 }
 function viewApps(){
+    $("#postJobsForm").hide();
+    $("#employerHomeBody").css("opacity","1");
+    $("#appliedForJobs").css("opacity","1");
+    $("#employerProfile").css("opacity","1");
+    document.getElementById("employerProfile").style="display:none";
     $("#employerHomePageNav").css("color","#818181");
+    $("#employerProfileButton").css("color","#818181");
     $("#viewApps").css("color","#f1f1f1");
     var xhttp=new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
@@ -296,9 +309,15 @@ function viewApps(){
 }
 function showEmployerHome(){
     $("#appliedForJobs").hide();
+    $("#employerHomeBody").css("opacity","1");
+    $("#appliedForJobs").css("opacity","1");
+    $("#employerProfile").css("opacity","1");
     $("#postedJobsCards").show();
+    $("#postJobsForm").hide();
     $("#employerHomePageNav").css("color","#f1f1f1");
     $("#viewApps").css("color","#818181");
+    $("#employerProfileButton").css("color","#818181");
+    document.getElementById("employerProfile").style="display:none";
 }
 function showEmployeeProfile(){
     $("#postedJobsCards").hide();
@@ -389,6 +408,7 @@ function enableEditing(){
     document.getElementById("ProfileCurrentLocation").removeAttribute("readonly");
     document.getElementById("ProfileExperience").removeAttribute("readonly");
     document.getElementById("profilePreferedDesignations").removeAttribute("readonly");
+    document.getElementById("submitButton").removeAttribute("disabled");
     $("#userProfile input").css("background-color","white");
     $("#userProfile textarea").css("background-color","white");
     document.getElementById("profileApplicantEmail").style="background-color:#f1f1f1";
@@ -481,7 +501,7 @@ function filterFunction(){
                 }
                 var statusFlag = document.getElementsByClassName("statusFlag");
                 if(statusFlag[cardCount].innerHTML=="Closed"){  
-                    applyButton[cardCount].disabled = "true";
+                    applyButton[cardCount].hidden = "true";
                     statusFlag[cardCount].setAttribute("class","badge badge-danger statusFlag");
                 }
                 cardCount++;
@@ -518,3 +538,24 @@ $(document).ready(function(){
         $("#designationsSelect").slideUp("fast");
     });
   });
+  function showEmployerProfile(){
+      $("#postJobsForm").hide();
+      $("#employerHomeBody").css("opacity","1");
+      $("#appliedForJobs").css("opacity","1");
+      $("#employerProfile").css("opacity","1");
+      $("#employerHomePageNav").css("color","#818181");
+      $("#employerProfileButton").css("color","#f1f1f1");
+      $("#viewApps").css("color","#818181");
+      document.getElementById("employerProfile").style="display:block";
+      document.getElementById("postedJobsCards").style="display:none";
+      $("#appliedForJobs").hide();
+  }
+  function enableEditingForEmployerProfile(){
+      document.getElementById("employerProfileFullName").removeAttribute("readonly");
+      document.getElementById("employerProfileCompanyName").removeAttribute("readonly");
+      document.getElementById("ProfileCurrentMobileNumber").removeAttribute("readonly");
+      document.getElementById("ProfileCurrentLocation").removeAttribute("readonly");
+      document.getElementById("EmployerProfileSubmitButton").removeAttribute("disabled");
+      $("#employerProfile input").css("background-color","white");
+      document.getElementById("employerProfileEmail").style="background-color:#f1f1f1";  
+  }

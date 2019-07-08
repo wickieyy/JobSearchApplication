@@ -69,7 +69,7 @@
             <div id="postedJobsCards">
             </div>
             <div id="userProfile" class="jumbotron">
-                </span><span><button id="editUserDetailsButton"  class="btn btn-info btn-sm" onclick="enableEditing();"><span class="glyphicon glyphicon-edit"></span>Edit Profile</button></span>
+                <span><button id="editUserDetailsButton"  class="btn btn-info btn-sm" onclick="enableEditing();"><span class="glyphicon glyphicon-edit"></span>Edit Profile</button></span>
                 <span id="userProfileH3"><h3><b>Profile</b></h3>
                 <br>
                 <s:actionerror/>
@@ -79,7 +79,7 @@
                     <s:textfield  name="currentLocation" key="currentLocation" label="Current Location" id="ProfileCurrentLocation" placeholder="Current Location" readonly="true"></s:textfield>
                     <s:textfield  name="experience" label="Years of Experience" placeholder="0 - 50+ year(s)" id="ProfileExperience" readonly="true"></s:textfield>
                     <s:textarea name="preferedDesignations" label="Prefered designations" id="profilePreferedDesignations" placeholder="seperate roles by ','" readonly="true"></s:textarea>
-                    <d:submit id="submitButton" value="Update Changes" validate="true"></d:submit>  
+                    <d:submit id="submitButton" value="Update Changes" validate="true" disabled="true"></d:submit>  
                 </s:form>  
             </div>
         </div>

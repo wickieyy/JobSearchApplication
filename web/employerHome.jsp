@@ -23,7 +23,7 @@
     <body onload="loadPostedJobs();">
             <h3 id="employerHomeBodyH3">Hello Recruiter, <span id="employerUser"></h3>
             <s:if test="hasActionMessages()">
-                <div class="alert alert-success alert-dismissible" id="actionMessageEmployeeHome">
+                <div class="alert alert-success alert-dismissible" id="actionMessageEmployerHome">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Success!</strong> <s:actionmessage/>
                 </div>
@@ -31,7 +31,8 @@
             <div class="sidenav">
                 <span class="sideNavBar" id="employerHomePageNav" onclick="showEmployerHome();">Home</span>
                 <span class="sideNavBar"  id="postNewJobsButton">Post New Job</span>
-                <span class="sideNavBar" id="viewApps" onclick="viewApps();"  id="applicationsButton">View Applications</span>
+                <span class="sideNavBar"  id="employerProfileButton" onclick="showEmployerProfile();">Profile</span>
+                <span class="sideNavBar" id="viewApps" onclick="viewApps();"  >View Applications</span>
                 <span class="sideNavBar" onclick="showEmployerLogout();">Log Out</span>
             </div>
         <div id="postJobsForm" class="jumbotron">
@@ -44,21 +45,29 @@
                 <s:textfield name="salary" key="salary" label="salary" id="salary" placeholder="Enter Salary"></s:textfield>
                 <s:textfield name="requiredExperience" label="Required Years of Experience" placeholder="0 - 50+ year(s)"></s:textfield>
                 <s:textarea name="skills" key="skills" label="Skills Required" id="skillsTextArea" placeholder="Enter the skills required"></s:textarea>
-                <s:checkbox name="vacancyStatus" fieldValue="true" label="Make Status as Open"/>
-                <d:submit id="submitButton" value="submit" validate="true" ></d:submit>  
+                <s:checkbox name="vacancyStatus" checked="true" label="Make Status as Open"/>
+                <d:submit id="EmployerProfileSubmitButton" value="submit" validate="true" ></d:submit>  
             </s:form>  
         </div>
         <div id="appliedForJobs">
 
         </div>
     <div id="employerHomeBody">
-        <div id="postedJobsCards">
-        </div>
-        <!-- <span><button name="postjob" id="postNewJobsButton" style="margin-left: 180px;"> Post New Job</button></div></span> -->
-        <!-- <span><button name="applications" id="applicationsButton" onclick="viewApps();">View Applications</button></span> -->
-        <!-- <s:form action="viewApplications" method="post" >
-            <d:submit value="submit" id="viewApplicationsButton"></d:submit>
-        </s:form> -->
+        <div id="postedJobsCards"></div>
+    </div>
+    <div id="employerProfile" class="jumbotron">
+        <span><button id="editUserDetailsButton"  class="btn btn-info btn-sm" onclick="enableEditingForEmployerProfile();"><span class="glyphicon glyphicon-edit"></span>Edit Profile</button></span>
+        <span id="employerProfileH3"><h3><b>Profile</b></h3>
+        <br>
+        <s:actionerror/>
+        <s:form action="updateEmployerUserDetails" method="post" id="EmployerProfileJobForm" validate="true" changed="false">  
+            <s:textfield  name="employerProfileEmail" key="email" label="Email" id="employerProfileEmail"   readonly="true"></s:textfield>
+            <s:textfield  name="employerProfileFullName" key="employerProfileFullName" label="Full Name" id="employerProfileFullName" placeholder="Full Name" readonly="true"></s:textfield>
+            <s:textfield  name="employerProfileCompanyName" key="employerProfileCompanyName" label="Company Name" id="employerProfileCompanyName" placeholder="Company Name" readonly="true"></s:textfield>
+            <s:textfield  name="employerProfileMobileNumber" key="currentMobileNumber" label="Current Mobile Number" id="ProfileCurrentMobileNumber" placeholder="Mobile Number" readonly="true"></s:textfield>
+            <s:textfield  name="employerProfileLocation" key="currentLocation" label="Current Location" id="ProfileCurrentLocation" placeholder="Current Location" readonly="true"></s:textfield>
+            <d:submit id="submitButton" value="Update Changes" validate="true"></d:submit>
+        </s:form>
     </div>
     </body>
 </html>

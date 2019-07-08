@@ -196,3 +196,18 @@
  #comapanyName{
      background-color: #e9ecef;
  }
+ #employerProfile{
+    margin: auto;
+    display:none;
+    width:450px; 
+}
+#employerProfile input {
+    background-color: #f1f1f1;
+}
+#actionMessageEmployerHome{
+    width:300px;
+    text-align: center;
+    position: absolute;
+    margin-left:480px;
+    z-index:1
+}

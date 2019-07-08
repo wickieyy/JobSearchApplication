@@ -34,6 +34,7 @@ public class PostedJobs  {
         String employerEmail = (String) ServletActionContext.getRequest().getSession().getValue("employerEmail");;
         DatabaseClass dbobj = new DatabaseClass();
         ResultSet rs = dbobj.getPostedJobsByEmployer(employerEmail);
+        ResultSet rs1 = dbobj.getEmployerProfileDetails(employerEmail);
         int i=0;
         while(rs.next()){
             json.put("postId"+i, rs.getString("postid"));
@@ -48,7 +49,11 @@ public class PostedJobs  {
             i++;
         }
         json.put("size", i);
-        i=0;
+        json.put("employerFullName", rs1.getString("fullname"));
+        json.put("employerProfileEmail", rs1.getString("email"));
+        json.put("employerCompanyName", rs1.getString("companyname"));
+        json.put("employerLocation",rs1.getString("location"));
+        json.put("employerMobileNumber", rs1.getString("mobilenumber"));
         HttpServletResponse response = ServletActionContext.getResponse();
         response.getWriter().print(json);
     }

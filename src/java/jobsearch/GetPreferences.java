@@ -36,7 +36,7 @@ public class GetPreferences extends ActionSupport {
 
     
     private String fullName;
-    private String email;
+    private String emailEmployeeRegister;
     private String password;
     private String locationRegister;
     private String pno;
@@ -69,6 +69,14 @@ public class GetPreferences extends ActionSupport {
         return resumeUpload;
     }
 
+        public String getEmailEmployeeRegister() {
+        return emailEmployeeRegister;
+    }
+
+    public void setEmailEmployeeRegister(String emailEmployeeRegister) {
+        this.emailEmployeeRegister = emailEmployeeRegister;
+    }
+    
     public void setResumeUpload(File resumeUpload) {
         this.resumeUpload = resumeUpload;
     }
@@ -96,14 +104,6 @@ public class GetPreferences extends ActionSupport {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -171,7 +171,7 @@ public class GetPreferences extends ActionSupport {
     public String execute() throws ClassNotFoundException, SQLException{
         try {
            String destPath = "E:\\Resumes"; 
-           File fileToCreate = new File(destPath,this.email+".txt");  
+           File fileToCreate = new File(destPath,this.emailEmployeeRegister+".txt");  
            FileUtils.copyFile(this.resumeUpload, fileToCreate);//copying source file to new file  
         } catch(IOException e) {
            e.printStackTrace();
@@ -187,7 +187,7 @@ public class GetPreferences extends ActionSupport {
             designations+=otherPref[i]+",";
         }
         DatabaseClass database=new DatabaseClass();
-        database.employeeRegister(fullName, email, password,locationRegister, pno, experienceYears, experienceAsPost,designations);
+        database.employeeRegister(fullName, emailEmployeeRegister, password,locationRegister, pno, experienceYears, experienceAsPost,designations);
         if(OtherPreferences.equals("")){}
         else{
             database.insertPreferences(OtherPreferences);

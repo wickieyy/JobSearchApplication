@@ -5,12 +5,9 @@ import com.opensymphony.xwork2.util.logging.Logger;
 import java.sql.SQLException;
 import java.util.Map;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
-import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 public class EmployeeLogin extends ActionSupport implements SessionAware{

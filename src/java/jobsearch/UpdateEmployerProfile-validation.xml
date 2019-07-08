@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+    
+<!DOCTYPE validators PUBLIC   
+  "-//OpenSymphony Group//XWork Validator 1.0.2//EN"   
+  "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">  
+  <validators>
+      <field name="employerProfileEmail">  
+        <field-validator type="requiredstring"> 
+            <param name="trim">true</param> 
+            <message>Email is Required</message>
+        </field-validator>  
+        <field-validator type="email">  
+            <message>Please enter a valid email ID</message>  
+        </field-validator>  
+      </field>
+      <field name="employerProfileLocation">  
+        <field-validator type="requiredstring">  
+            <param name="trim">true</param> 
+            <message>Enter your Current Location</message>  
+        </field-validator>   
+    </field>
+    <field name="employerProfileMobileNumber">   
+        <field-validator type="stringlength">  
+                <param name="trim">true</param> 
+                <param name="minLength">10</param>  
+                <param name="maxLength">10</param>  
+                <message>Enter a valid Mobile Number contains 10 digits</message>  
+        </field-validator> 
+    </field>
+    <field name="employerProfileCompanyName">  
+        <field-validator type="requiredstring">  
+            <param name="trim">true</param> 
+            <message>Enter your Company Name</message>  
+        </field-validator>   
+    </field>
+    <field name="employerProfileFullName">  
+        <field-validator type="requiredstring">  
+            <param name="trim">true</param> 
+            <message>Enter your Name</message>  
+        </field-validator>   
+    </field>   
+  </validators>

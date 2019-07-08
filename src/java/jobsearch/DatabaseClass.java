@@ -205,4 +205,26 @@ public class DatabaseClass {
         ResultSet alreadyApplied = ps.executeQuery();
         return alreadyApplied; 
     }
+
+    ResultSet getEmployerProfileDetails(String employerEmail) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
+        PreparedStatement ps = connection.prepareStatement("select * from recruiters where email=?;");
+        ps.setString(1,employerEmail);
+        ResultSet employerProfile = ps.executeQuery();
+        employerProfile.next();
+        return employerProfile; 
+    }
+
+    void updateEmployerProfile(String employerProfileEmail, String employerProfileLocation, String employerProfileMobileNumber, String employerProfileFullName, String employerProfileCompanyName) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jobsearch", "wickie", "wickie");
+        PreparedStatement ps = connection.prepareStatement("update recruiters set mobilenumber = ?, location=?, fullname =?, companyname=? where email=?");
+        ps.setString(1, employerProfileMobileNumber);
+        ps.setString(2, employerProfileLocation);
+        ps.setString(3, employerProfileFullName);
+        ps.setString(4, employerProfileCompanyName);
+        ps.setString(5, employerProfileEmail);
+        ps.executeUpdate();
+    }
 }

@@ -67,6 +67,11 @@
             <result name="success">/jobseeker.jsp</result>
             <result name="input">/jobseeker.jsp</result>
         </action>
+        <action name="updateEmployerUserDetails" class="jobsearch.UpdateEmployerProfile" method="execute">
+            <interceptor-ref name="jsonValidationWorkflowStack"></interceptor-ref> 
+            <result name="success">/employerHome.jsp</result>
+            <result name="input">/employerHome.jsp</result>
+        </action>
         <action name="viewApplications" class="jobsearch.ViewApplications" method="viewApps">
             <!--<result name="success">/test.jsp</result>-->
         </action>
@@ -75,13 +80,9 @@
             <result name="success">/EmployeeRegister.jsp</result>
             <result name="input">/EmployeeRegister.jsp</result>
         </action>
-        <action name="PostedJobs" class="jobsearch.PostedJobs" method="execute">
-        </action>
-        <action name="PostedJobsGetAppliedCount" class="jobsearch.PostedJobs" method="getApplicationsCount">
-        </action>
-        <action name="GetAppliedCountForSeekers" class="jobsearch.PostedJobsForSeekers" method="getApplicationCount">
-        </action>
-        <action name="PostedJobsForSeekers" class="jobsearch.PostedJobsForSeekers" method="execute">
-        </action>
+        <action name="PostedJobs" class="jobsearch.PostedJobs" method="execute"/>
+        <action name="PostedJobsGetAppliedCount" class="jobsearch.PostedJobs" method="getApplicationsCount"/>
+        <action name="GetAppliedCountForSeekers" class="jobsearch.PostedJobsForSeekers" method="getApplicationCount"/>
+        <action name="PostedJobsForSeekers" class="jobsearch.PostedJobsForSeekers" method="execute"/>
     </package>
 </struts>
