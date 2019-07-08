@@ -1,0 +1,42 @@
+JS Web APP
+1.navigator.onLine
+2.autoFlush=true //If buffer overflows
+
+
+
+Job Search Application
+
+1. Company Registation
+2. Job seeker Registration
+3. Job Post by Company
+4. Job Apply by Job Seeker
+
+Already Registered
+1. pno
+2. email
+3. company
+
+Add
+1. Number of Apps--
+2. Vacancies--
+3. Department (users & jobpost) DROPDOWN ,company name(auto compete)
+4. Status for applicant--
+5. status for job vacancy--
+6. posted by--
+7. Company Location--
+8.salary--
+9.resume Upload--
+10.filter--
+11.edit user profile--
+12. Signed in as--
+13. log out--
+
+dbdesign,ui,code,userexperience
+
+
+
+CREATE TABLE Archive.dbo.Records(    [Id] [uniqueidentifier] ROWGUIDCOL NOT NULL UNIQUE,[SerialNumber] INTEGER UNIQUE,[Chart] VARBINARY(MAX) FILESTREAM NULL)GO
+
+BLOB INSERT QUERY
+
+INSERT INTO `abc`(`img`) VALUES (LOAD_FILE('C:/Users/adity/Desktop/New folder/a.png'))
